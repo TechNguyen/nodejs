@@ -1,0 +1,124 @@
+<div class="mt-4">
+  <h3>Khóa học của tôi</h3>
+  <a href="/me/stored/courses">Khoa hoc cua toi</a>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Tên khóa học</th>
+        <th scope="col">Trình Độ</th>
+        <th scope="col">Slug course</th>
+        <th scope="col">ID video</th>
+        <th scope="col">Thời gian tạo</th>
+        <th scope="col" colspan="2">Thời gian tạo</th>      
+      </tr>
+    </thead>
+    <tbody>
+        {{#each course}}
+        <tr>
+        <th scope="row">{{sum @index 1}}</th>
+        <td>{{this.name}}</td>
+        <td>{{this.description}}</td>
+        <td>{{this.slug}}</td>
+        <td>{{this.videoID}}</td>
+        <td>{{this.createAt}}</td>
+        <td>
+            <a href="/courses/{{this._id}}" data-id="{{this._id}}" class="btn btn-link btn-restore">Restore</a>
+            <a href=""  data-id="{{this._id}}"  data-toggle="modal" data-target="#deleteModal" class="btn btn-link">Delete</a>
+        </td>
+        </tr>
+        {{else}}
+        <tr>
+          <td colspan="5" class="text-center">Thùng rác trống
+            <a href="/me/stored/courses">Danh sách khóa học</a>
+          </td>
+        </tr>
+        {{/each}}
+
+        
+
+
+    </tbody>
+  </table>
+
+</div>
+
+<form method="post" name="deleteForm" id="deleteForm">
+
+</form>
+<form method="post" name="restoreForm" id="restoreForm">
+
+</form>
+
+<div id="deleteModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Modal body text goes here.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button id="btn-delete-course" type="button" class="btn btn-primary" >Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div id="restoreForm" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Modal body text goes here.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button id="btn-delete-course" type="button" class="btn btn-primary" >Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+
+
+
+   document.addEventListener('DOMContentLoaded', function() {
+    const deleteForm = document.forms['deleteForm'];
+    const clickDelete = document.getElementById('btn-delete-course');
+    var courseId;
+    $('#deleteModal').on('show.bs.modal', function(e) {
+       courseId = $(e.relatedTarget).data('id')
+    })
+    clickDelete.addEventListener('click', function() {
+        deleteForm.action = '/courses/' + courseId + '/force?_method=DELETE';
+        deleteForm.submit();
+    })
+    })
+
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const restoreForm = document.forms['restoreForm'];
+    const clickRestore = $('.btn-restore');
+    clickRestore.click(function(e) {  
+      e.preventDefault();
+      var courseId = $(this).data('id')
+      restoreForm.action = '/courses/' + courseId + '/restore?_method=PATCH';
+      restoreForm.submit();
+    })
+    })
+</script>

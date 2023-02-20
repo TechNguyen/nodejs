@@ -1,0 +1,31 @@
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item"><a class="page-link" href="" onclick=preFile()>Previous</a></li>
+    <li class="page-item"><a class="page-link" href="#" onclick=loadFile()>1</a></li>
+    <li class="page-item"><a class="page-link" href="#" onclick=loadFile()>2</a></li>
+    <li class="page-item"><a class="page-link" href="#" onclick=loadFile()>3</a></li>
+    <li class="page-item"><a class="page-link" href="#" onclick=nextFile()>Next</a></li>
+  </ul>
+</nav>
+<script>
+    $.ajax(
+      url: '/pagination?page=4'
+      type: 'GET'
+    )
+      .then((data) => {
+        console.log(data)
+      })
+      .catch((err) => {
+        console.log('API loi')
+      })
+    function loadFile() {
+
+    }
+    function preFile() {
+
+    }
+    function nextFile() {
+
+    }
+
+</script>

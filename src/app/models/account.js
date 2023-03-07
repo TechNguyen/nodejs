@@ -7,9 +7,7 @@ const account = new Schema({
 }, {
     collection: 'Accounts'
 })
-
 const AccountModels = mongoose.model('Accounts', account)
-
 module.exports = AccountModels
 
 

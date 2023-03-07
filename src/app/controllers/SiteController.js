@@ -2,7 +2,6 @@ const Course = require('../models/Course')
 const {multiltoObject, mongoogeToObject} = require('../../ulti/mongoose')
 const express = require('express')
 const Accounts = require('../models/account')
-
 var jwt = require('jsonwebtoken');
 class SiteController {
     home(req, res, next) {

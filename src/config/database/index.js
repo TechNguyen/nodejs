@@ -5,9 +5,8 @@ async function connect() {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });
-        console.log('Connect');
     } catch(error) {
-        console.log('faile');
+        alert(error)
     }
 };
 module.exports = {connect}

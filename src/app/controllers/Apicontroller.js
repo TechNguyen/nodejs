@@ -10,7 +10,6 @@ class Api {
     async createUser(req,res,next) {
         const username = req.body.username;
         const password = req.body.password;
-        res.send('User.hbs')
         await Account.create({username: username,password: password})
         return res.status(200).json({
             message: 'ok',

@@ -7,12 +7,27 @@ class Home {
         const user = new User(req.body)
         user.save()
             .then((user) => {
-                res.redirect('detail/store')
+                User.find()
+                .then((users) => {
+                    res.render('home', {users: users})
+                })
+                .catch(next)
             })
             .catch(next)
     }
     getUser(req,res,next) {
-        res.send('Tai khoan')
+        User.find()
+        .then((user) => {
+            res.render('user/userStore', {users: user})
+        })
+        .catch(next)
+    }
+    updateUser(req,res,next) {
+        User.updateOne({_id: res.params.id}, req.body)
+            .then(() => {
+                res.redirect('/user/store')
+            })
+            .catch(next)
     }
 }
 module.exports = new Home()

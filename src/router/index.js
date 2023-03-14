@@ -10,8 +10,8 @@ function Route(app) {
     app.use('/news', newsRouter)
     app.use('/courses', courseRouter)
     app.use('/me', meRouter)
-    app.use('/', home)
-    app.use('/site', siteRouter)
+    app.use('/user', home)
+    app.use('/', siteRouter)
     app.use('/api/v1', api )
 }
 module.exports = Route

@@ -44,7 +44,7 @@
               <input
                 class="form-check-input"
                 type="checkbox"
-                value="{{this._id}}"
+                value="{{this.id}}"
                 name="coursesID[]"
               />
             </div>
@@ -54,12 +54,14 @@
           <td>{{this.lastname}}</td>
           <td>{{this.email}}</td>
           <td>{{this.address}}</td>
-          <td>{{this.createAt}}</td>
+          <td>{{this.createdAt}}</td>
           <td>
-            <a href="/user/{{this._id}}/edit" class="btn btn-link">Update</a>
+            <a href="/user/edit/{{this.id}}" class="btn btn-link">Update</a>
+          </td>
+          <td>
             <a
               href=""
-              data-id="{{this._id}}"
+              data-id="{{this.id}}"
               data-toggle="modal"
               data-target="#deleteModal"
               class="btn btn-link"
@@ -69,7 +71,7 @@
       {{else}}
         <tr>
           <td colspan="5" class="text-center">Khong co nguoi dung
-            <a href="/user">Đăng ky user</a>
+            <a href="/user/create">Đăng ky user</a>
           </td>
         </tr>
       {{/each}}

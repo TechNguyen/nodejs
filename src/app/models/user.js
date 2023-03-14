@@ -8,9 +8,8 @@ const User = new Schema({
     firstname: String,
     lastname: String,
 }, {
+    collection: 'User',
     timestamps: true
-}, {
-    collection: 'User'
 })
 const UserModel = mongoose.model('User', User)
 module.exports = UserModel

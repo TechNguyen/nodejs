@@ -2,12 +2,14 @@ const Course = require('../models/Course')
 const {multiltoObject, mongoogeToObject} = require('../../ulti/mongoose')
 const express = require('express')
 const Accounts = require('../models/account')
-var jwt = require('jsonwebtoken');
+const User = require('../models/user')
+const jwt = require('jsonwebtoken');
 class SiteController {
     home(req, res, next) {
-        Course.find({})
-            .then(courses => {
-                res.render('home', { courses: multiltoObject(courses) })
+        User.find({})
+            .then(users => {
+                console.log(users);
+                res.render('home', { users: users})
             })
             .catch(next)
     };

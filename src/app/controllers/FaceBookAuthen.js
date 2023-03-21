@@ -9,6 +9,21 @@ class FaceBookAuthen {
             clientSecret: process.env.FACEBOOK_SECRET_KEY,
             callbackURL: "http://localhost:3001/auth/facebook/callback"
         }))
+
+
+
+        async function (accessToken, refreshYToken, profile, cb) {
+            const user = await User.findOne({
+                accountId: profile.id,
+                provider: 'facebook'
+            })
+            if(!user) {
+                console.log('add to the db');
+                const newuser = new Accounts({
+                    profileId: profile.id
+                })
+            }
+        }
     }
 }
 

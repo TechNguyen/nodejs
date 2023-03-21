@@ -56,11 +56,11 @@
           <td>{{this.address}}</td>
           <td>{{this.createdAt}}</td>
           <td>
-            <a href="/user/edit/{{this.id}}" class="btn btn-link">Update</a>
+            <a href="/user/edit/{{this._id}}" class="btn btn-link">Update</a>
           </td>
           <td>
             <a
-              href=""
+              href="/user/{{this._id}}"
               data-id="{{this.id}}"
               data-toggle="modal"
               data-target="#deleteModal"
@@ -121,13 +121,14 @@
   document.addEventListener('DOMContentLoaded', function() { 
     const delteForm = document.forms['deleteForm'];
   const clickDelete = document.getElementById('btn-delete-course');
-   var courseId;
+   var userId;
    var checkboxall = $('#checkbox-all');
    var coursesItemcheckbox = $('input[name="coursesID[]"]')
-    $('#deleteModal').on('show.bs.modal', function(e) { courseId =
-    $(e.relatedTarget).data('id') })
+    $('#deleteModal').on('show.bs.modal', function(e) { 
+      userId = $(e.relatedTarget).data('id')
+       })
     clickDelete.addEventListener('click',function() { 
-      delteForm.action = '/courses/' + courseId + '?_method=DELETE';
+      delteForm.action = '/user/' + userId + '?_method=DELETE';
       delteForm.submit(); 
     })
     checkboxall.change(function() {

@@ -1,13 +1,13 @@
 <div class="mt-4">
     <h3>Sửa thong tin nguoi dung</h3>
-  <form action="/user/store{{user.id}}?_method='PUT'" method="post">
+  <form action="/user/store/{{user._id}}?_method=PUT" method="post">
   <div class="form-group">
     <label for="firstname">Fisrtname</label>
     <input type="text" class="form-control" name="firstname"  value="{{user.firstname}}">
   </div>
   <div class="form-group">
     <label for="lastname">Last Name</label>
-    <input class="form-control"  name="lastname">{{user.lastname}}</input>
+    <input class="form-control"  name="lastname" value="{{user.lastname}}">
   </div>
     <div class="form-group">
         <label for="slug">Email</label>

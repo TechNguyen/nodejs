@@ -7,7 +7,7 @@ class Home {
     show(req,res,next ) {
         User.findById(req.params.id)
             .then((user) => {
-                res.render('user/show', {user: mongoogeToObject(user)} )
+                res.render('user/show', {user: mongoogeToObject(user)})
             })
             .catch(next)
     }
@@ -20,7 +20,11 @@ class Home {
             .catch(next)
     }
     getUser(req,res,next) {
-        
+        User.find({})
+            .then((user) => {
+                res.render('user/userStore', {users: user})
+            })
+            .catch(next)
     }
     editUser(req,res,next) {
         User.findById(req.params.id)
@@ -32,9 +36,16 @@ class Home {
             .catch(next)
     }
     updateUser(req,res,next) {
-        User.updateOne({_id: res.params.id}, req.body)
+        User.updateOne({_id: req.params.id}, req.body)
             .then(() => {
-                res.redirect('/user/store')
+                res.redirect('/user/storeUser')
+            })
+            .catch(next)
+    }
+    deleteUser(req,res,next) {
+        User.deleteOne({_id: req.params.id})
+            .then(() => {
+                res.redirect('back')
             })
             .catch(next)
     }

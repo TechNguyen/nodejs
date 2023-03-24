@@ -10,4 +10,4 @@ router.put('/:id', coursesController.update)
 router.delete('/:id', coursesController.destroy)
 router.delete('/:id/force', coursesController.forced)
 router.get('/:slug', coursesController.show)
-module.exports = router
+module.exports = router     

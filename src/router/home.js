@@ -6,6 +6,6 @@ route.post('/store', Home.storeUser)
 route.get('/storeUser', Home.getUser)
 route.get('/edit/:id', Home.editUser)
 route.put('/store/:id', Home.updateUser)
-route.delete('/:id', Home.deleteUser)
+route.delete('/delete/:id', Home.deleteUser)
 route.get('/:id', Home.show)
 module.exports = route

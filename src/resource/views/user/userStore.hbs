@@ -1,7 +1,7 @@
 <form class="mt-4" name="container-form" method="post" action="">
   <h3>Danh sach nguoi dung</h3>
   {{#if countDeleted}}
-    <a href="/user/trash/courses">Thùng rác ({{countDeleted}}) </a>
+    <a href="/user/trash/user">Thùng rác ({{countDeleted}}) </a>
   {{/if}}
 
   <div class="mt-4 d-flex align-items-center">
@@ -22,7 +22,7 @@
       <option value="delete">xoa</option>
     </select>
 
-    <button class="btn btn-primary btn-sm btn-checked disabled ">Thuc hien </button>
+    <button class="btn btn-primary btn-sm btn-checked">Thuc hien </button>
   </div>
   <table class="table">
     <thead>
@@ -44,8 +44,8 @@
               <input
                 class="form-check-input"
                 type="checkbox"
-                value="{{this.id}}"
-                name="coursesID[]"
+                value="{{this._id}}"
+                name="userId[]"
               />
             </div>
           </td>
@@ -60,8 +60,8 @@
           </td>
           <td>
             <a
-              href="/user/{{this._id}}"
-              data-id="{{this.id}}"
+              href="/user/delete/{{this._id}}"
+              data-id="{{this._id}}"
               data-toggle="modal"
               data-target="#deleteModal"
               class="btn btn-link"
@@ -80,7 +80,7 @@
 
 </form>
 
-<form method="post" name="deleteForm" id="deleteForm">
+<form method="POST" name="deleteForm" id="deleteForm">
 
 </form>
 
@@ -116,35 +116,57 @@
     </div>
   </div>
 </div>
-
+{{!-- <nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item"><a class="page-link" href="?page={{curentPage}}" >Previous</a></li>
+    <li class="page-item"><a class="page-link" href='?page=1'>1</a></li>
+    <li class="page-item"><a class="page-link" href="?page=2">2</a></li>
+    <li class="page-item"><a class="page-link" href="?page=3">3</a></li>
+    <li class="page-item"><a class="page-link" href="?page={{curentPage}}" >Next</a></li>
+  </ul>
+</nav> --}}
 <script>
-  document.addEventListener('DOMContentLoaded', function() { 
-    const delteForm = document.forms['deleteForm'];
+  document.addEventListener('DOMContentLoaded', function() {
+ const delteForm = document.forms['deleteForm'];
   const clickDelete = document.getElementById('btn-delete-course');
    var userId;
-   var checkboxall = $('#checkbox-all');
-   var coursesItemcheckbox = $('input[name="coursesID[]"]')
+   let checkboxall = $('#checkbox-all');
+   let useItemcheckbox = $('input[name="userId[]"]')
     $('#deleteModal').on('show.bs.modal', function(e) { 
-      userId = $(e.relatedTarget).data('id')
-       })
-    clickDelete.addEventListener('click',function() { 
-      delteForm.action = '/user/' + userId + '?_method=DELETE';
-      delteForm.submit(); 
+      userId = $(e.relatedTarget).data('id');
     })
+   clickDelete.addEventListener('click',function() { 
+      delteForm.action = '/user/delete/' + userId + '?_method=DELETE';
+      delteForm.submit();  
     checkboxall.change(function() {
-      var ischecked = $(this).prop('checked');
-      ischecked ? coursesItemcheckbox.prop('checked', true) : coursesItemcheckbox.prop('checked', false)
+      let ischecked = $(this).prop('checked');
+      ischecked ? useItemcheckbox.prop('checked', true) : useItemcheckbox.prop('checked', false)
       renderExBtn()
     })
-    coursesItemcheckbox.change(function(course) {
-        var ischeckedAll = coursesItemcheckbox.length === $('input[name="coursesID[]"]:checked').length
+    useItemcheckbox.change(function(user) {
+        let ischeckedAll = useItemcheckbox.length === $('input[name="userId[]"]:checked').length
         checkboxall.prop('checked', ischeckedAll)
         renderExBtn()
       })
     })
     function renderExBtn() {
-      var countchecked = $('input[name="coursesID[]"]:checked').length;
-      var excBtn = $('.btn-checked');
-      countchecked >= 1 ? excBtn.removeClass('disabled') : excBtn.addClass('disabled');
+      let userchecked = $('input[name="userId[]"]:checked').length;
+      let excBtn = $('.btn-checked');
+      userchecked >= 1 ? excBtn.removeClass('disabled') : excBtn.addClass('disabled');
     }
+
+    {{!-- Pagination --}}
+    let page = 1;
+    let curentPage;
+     function nextFile(page) {
+      curentPage = page + 1;
+      page += 1;
+      return curentPage;
+    }
+     function preFile(page) {
+      curentPage = page - 1;
+      page-= 1;
+      return curentPage;
+    }
+  })
 </script>

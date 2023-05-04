@@ -1,0 +1,179 @@
+ {{#with acc}}
+        <nav class="navbar navbar-light bg-light">
+          <form class="form-inline" method="post" action="/auth/admin/search/{{_id}}">
+            <input class="form-control mr-sm-2" type="search" placeholder="Tìm theo tên" aria-label="Search" name="usercheck">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm kiếm</button>
+          </form>
+        </nav>
+
+        <form method="post" action="/auth/admin/filter/{{_id}}">
+          <div class="col-auto my-1">
+            <label class="mr-sm-2" for="inlineFormCustomSelect">Chuyên ngành</label>
+            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="course">
+              <option selected>Ngành</option>
+              <option value="KHMT">KHMT</option>
+              <option value="KTPM">KTPM</option>
+              <option value="CNTT">CNTT</option>
+              <option value="OTHER">Khác</option>
+            </select>
+          </div>
+          <div class="col-auto my-1">
+            <label class="mr-sm-2" for="inlineFormCustomSelect">Khóa học</label>
+            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="specialized">
+              <option selected>Khóa</option>
+              <option value="K14">K14</option>
+              <option value="K15">K15</option>
+              <option value="K16">K16</option>
+              <option value="K17">K17</option>
+              <option value="OTHER">Khác</option>
+            </select>
+          </div>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Lọc thành viên</button>
+        </form>
+  {{/with}}
+<form class="mt-4" name="container-form" method="post" action="">
+  <h3>Danh sách thành viên</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col" colspan="2">#</th>
+          <th scope="col">Họ tên thành viên</th>
+          <th scope="col">Tên thành viên</th>
+          <th scope="col">Email</th>
+          <th scope="col">Địa chỉ</th>
+          <th scope="col">Lớp</th>
+          <th scope="col">Khóa</th>
+          <th scope="col">Chuyên ngành</th>
+          <th scope="col">Chức vụ</th>
+          <th scope="col">Vị trí</th>
+          <th scope="col" colspan="2">Edit user</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each user}}
+          <tr>
+            <td>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value="{{this._id}}"
+                  name="userId[]"
+                />
+              </div>
+            </td>
+            <th scope="row"></th>
+            <td>{{this.firstname}}</td>
+            <td>{{this.lastname}}</td>
+            <td>{{this.email}}</td>
+            <td>{{this.address}}</td>
+            <td>{{this.class}}</td>
+            <td>{{this.teach}}</td>
+            <td>{{this.createdAt}}</td>
+            <td>
+              <a href="/user/edit/{{this._id}}" class="btn btn-link">Update</a>
+            </td>
+            <td>
+              <a
+                href=""
+                data-id="{{this._id}}"
+                data-toggle="modal"
+                data-target="#deleteModal"
+                class="btn btn-link"
+              >Delete</a>
+            </td>
+          </tr>
+        {{else}}
+          <tr>
+            <td colspan="5" class="text-center">Khong co nguoi dung
+              <a href="/user/create">Đăng ky user</a>
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+
+</form>
+
+
+{{!-- Form delete --}}
+<form method="POST" name="deleteForm" id="deleteForm">
+
+</form>
+
+<div id="deleteModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Thong bao</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Ban co chac chan muon xoa.</p>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-dismiss="modal"
+        >Close</button>
+        <button
+          id="btn-delete-course"
+          type="button"
+          class="btn btn-primary"
+        >Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+{{!-- <nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item"><a class="page-link" href="?page={{curentPage}}" >Previous</a></li>
+    <li class="page-item"><a class="page-link" href='?page=1'>1</a></li>
+    <li class="page-item"><a class="page-link" href="?page=2">2</a></li>
+    <li class="page-item"><a class="page-link" href="?page=3">3</a></li>
+    <li class="page-item"><a class="page-link" href="?page={{curentPage}}" >Next</a></li>
+  </ul>
+</nav> --}}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  const delteForm = document.forms['deleteForm'];
+  const clickDelete = document.getElementById('btn-delete-course');
+   let userId;
+   let checkboxall = $('#checkbox-all');
+   let useItemcheckbox = $('input[name="userId[]"]')
+   let btncheck = $('.btn-checked')
+  $('#deleteModal').on('show.bs.modal', function(e) {
+      userId = $(e.relatedTarget).data('id')
+  })
+   clickDelete.addEventListener('click',function() { 
+      delteForm.action = '/user/delete/' + userId + '?_method=DELETE';
+      delteForm.submit();  
+  })
+  btncheck.addEventListener('click', function() {
+    console.log(1)
+  })
+    checkboxall.change(function() {
+      let ischecked = $(this).prop('checked');
+      ischecked ? useItemcheckbox.prop('checked', true) : useItemcheckbox.prop('checked', false)
+      renderExBtn()
+    })
+    useItemcheckbox.change(function() {
+        let ischeckedAll = useItemcheckbox.length === $('input[name="userId[]"]:checked').length
+        checkboxall.prop('checked', ischeckedAll)
+        renderExBtn()
+      })
+    })
+    function renderExBtn() {
+      let userchecked = $('input[name="userId[]"]:checked').length;
+      let excBtn = $('.btn-checked');
+      userchecked >= 1 ? excBtn.removeClass('disabled') : excBtn.addClass('disabled');
+    }
+</script>

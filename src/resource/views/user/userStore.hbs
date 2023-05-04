@@ -1,8 +1,8 @@
 <form class="mt-4" name="container-form" method="post" action="">
   <h3>Danh sach nguoi dung</h3>
-  {{#if countDeleted}}
-    <a href="/user/trash/user">Thùng rác ({{countDeleted}}) </a>
-  {{/if}}
+    {{#if countDeleted}}
+       <a href="/user/trashUser">Thùng rac ({{countDeleted}})</a>  
+    {{/if}} 
 
   <div class="mt-4 d-flex align-items-center">
     <div class="form-check ">
@@ -32,6 +32,8 @@
         <th scope="col">Ten nguoi dung</th>
         <th scope="col">Email </th>
         <th scope="col">Address </th>
+        <th scope="col">Ten lop </th>
+        <th scope="col">Ngay day </th>
         <th scope="col">Thời gian tạo</th>
         <th scope="col" colspan="2">Edit user</th>
       </tr>
@@ -54,13 +56,15 @@
           <td>{{this.lastname}}</td>
           <td>{{this.email}}</td>
           <td>{{this.address}}</td>
+          <td>{{this.classname}}</td>
+          <td>{{this.teach}}</td>
           <td>{{this.createdAt}}</td>
           <td>
             <a href="/user/edit/{{this._id}}" class="btn btn-link">Update</a>
           </td>
           <td>
             <a
-              href="/user/delete/{{this._id}}"
+              href=""
               data-id="{{this._id}}"
               data-toggle="modal"
               data-target="#deleteModal"
@@ -79,7 +83,6 @@
   </table>
 
 </form>
-
 <form method="POST" name="deleteForm" id="deleteForm">
 
 </form>
@@ -88,7 +91,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
+        <h5 class="modal-title">Thong bao</h5>
         <button
           type="button"
           class="close"
@@ -99,7 +102,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <p>Modal body text goes here.</p>
+        <p>Ban co chac chan muon xoa.</p>
       </div>
       <div class="modal-footer">
         <button
@@ -127,23 +130,28 @@
 </nav> --}}
 <script>
   document.addEventListener('DOMContentLoaded', function() {
- const delteForm = document.forms['deleteForm'];
+  const delteForm = document.forms['deleteForm'];
   const clickDelete = document.getElementById('btn-delete-course');
-   var userId;
+   let userId;
    let checkboxall = $('#checkbox-all');
    let useItemcheckbox = $('input[name="userId[]"]')
-    $('#deleteModal').on('show.bs.modal', function(e) { 
-      userId = $(e.relatedTarget).data('id');
-    })
+   let btncheck = $('.btn-checked')
+  $('#deleteModal').on('show.bs.modal', function(e) {
+      userId = $(e.relatedTarget).data('id')
+  })
    clickDelete.addEventListener('click',function() { 
       delteForm.action = '/user/delete/' + userId + '?_method=DELETE';
       delteForm.submit();  
+  })
+  btncheck.addEventListener('click', function() {
+    console.log(1)
+  })
     checkboxall.change(function() {
       let ischecked = $(this).prop('checked');
       ischecked ? useItemcheckbox.prop('checked', true) : useItemcheckbox.prop('checked', false)
       renderExBtn()
     })
-    useItemcheckbox.change(function(user) {
+    useItemcheckbox.change(function() {
         let ischeckedAll = useItemcheckbox.length === $('input[name="userId[]"]:checked').length
         checkboxall.prop('checked', ischeckedAll)
         renderExBtn()
@@ -154,19 +162,4 @@
       let excBtn = $('.btn-checked');
       userchecked >= 1 ? excBtn.removeClass('disabled') : excBtn.addClass('disabled');
     }
-
-    {{!-- Pagination --}}
-    let page = 1;
-    let curentPage;
-     function nextFile(page) {
-      curentPage = page + 1;
-      page += 1;
-      return curentPage;
-    }
-     function preFile(page) {
-      curentPage = page - 1;
-      page-= 1;
-      return curentPage;
-    }
-  })
 </script>

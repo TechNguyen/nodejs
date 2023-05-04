@@ -1,4 +1,4 @@
-const { mongoogeToObject, multiltoObject } = require('../../ulti/mongoose')
+const { mongoogeToObject, multiltoObject } = require('../../ultis/mongoose')
 const User = require('../models/user')
 const PAGE_SIZE = 8;
 class Home {
@@ -21,25 +21,14 @@ class Home {
             .catch(next)
     }
     getUser(req,res,next) {
-        const page = req.query.page;
-        const skippage = (parseInt(page) - 1) * PAGE_SIZE; 
-        if(page && page > 1) {
-            User.find({})
-                // .skip(skippage)
-                // .limit(PAGE_SIZE)
-                .then((user) => {
-                    res.render('user/userStore', {users: user})
+        Promise.all([User.find({}), User.countDocumentsDeleted()])
+            .then(([user, countDeleted]) => {
+                res.render('user/userStore', {
+                    users: user,
+                    countDeleted : countDeleted
                 })
-                .catch(next)
-        } else {
-            User.find({})
-                // .skip(0)
-                // .limit(PAGE_SIZE)
-                .then((user) => {
-                    res.render('user/userStore', {users: user})
-                })
-                .catch(next)
-        }
+            })
+            .catch(next)
     }
     editUser(req,res,next) {
         User.findById(req.params.id)
@@ -57,34 +46,31 @@ class Home {
             })
             .catch(next)
     }
-    deleteUser(req,res,next) {
-        // User.deleteOne({id: req.params.id})
-        //     .then(() => {
-        //         res.redirect('back')
-        //     })
-        //     .catch(next)
-
-
-        User.findById(req.params.id)
+    getTrashUser(req,res,next) {
+        User.findDeleted({})
             .then((user) => {
-                res.json(user)
+                res.render('user/storeTrash', {
+                    users: user
+                })
             })
             .catch(next)
-        // User.deleteOne({id: req.params.id})
-        //     .then(() => {
-        //         res.redirect('back')
-        //     })
-        //     .catch(next)
     }
-    deleteForced(req,res,next) {
-        User.deleteMany({id: req.params.id})
+    deleteUser(req,res,next) {
+        User.delete({_id: req.params.id})
             .then(() => {
                 res.redirect('back')
             })
             .catch(next)
     }
+    deleteForced(req,res,next) {
+        User.deleteOne({_id: req.params.id})
+            .then(() => {
+               res.redirect('back')
+            })
+            .catch(next)
+    }
     restore(req,res,next) {
-        User.restore({id: req.params.id})
+        User.restore({_id: req.params.id})
             .then(() => {
                 res.redirect('back')
             })

@@ -1,5 +1,5 @@
 const Course = require('../models/Course')
-const {multiltoObject, mongoogeToObject} = require('../../ulti/mongoose')
+const {multiltoObject, mongoogeToObject} = require('../../ultis/mongoose')
 const express = require('express')
 const Accounts = require('../models/account')
 const User = require('../models/user')

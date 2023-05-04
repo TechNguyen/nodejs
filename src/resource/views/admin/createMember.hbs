@@ -1,0 +1,126 @@
+{{#with acc}}
+<form class="row g-3" action="/auth/admin/user/{{_id}}" method="post">
+  <div class="col-md-4">
+    <label for="validationServer01" class="form-label">Họ</label>
+    <input type="text" class="form-control is-valid" name="firstname" id="validationServer01" required>
+    <div class="valid-feedback">
+      Looks good!
+    </div>
+  </div>
+  <div class="col-md-4">
+    <label for="validationServer02" class="form-label">Tên</label>
+    <input type="text" class="form-control is-valid" id="validationServer02" name="lastname" required>
+    <div class="valid-feedback">
+      Looks good!
+    </div>
+  </div>
+  <div class="col-md-4">
+    <label for="validationServer02" class="form-label">Mật khẩu</label>
+    <input type="password" class="form-control is-valid" id="validationServer02" name="password" required>
+    <div class="valid-feedback">
+      Looks good!
+    </div>
+  </div>
+  <div class="col-md-4">
+    <label for="validationServer02" class="form-label">Lớp</label>
+    <input type="text" class="form-control is-valid" id="validationServer02" name="class" required>
+    <div class="valid-feedback">
+      Looks good!
+    </div>
+  </div>
+  <div class="col-md-4">
+    <label for="validationServer02" class="form-label">Địa chỉ</label>
+    <input type="text" class="form-control is-valid" id="validationServer02" name="address" required>
+    <div class="valid-feedback">
+      Looks good!
+    </div>
+  </div>
+  <div class="col-md-4">
+    <label for="validationServer02" class="form-label">Email</label>
+    <input type="email" class="form-control is-valid" id="validationServer02" name="email" required>
+    <div class="valid-feedback">
+      Looks good!
+    </div>
+  </div>
+
+   <div class="col-md-4">
+    <label for="validationServer02" class="form-label">Tên đăng nhập</label>
+    <input type="text" class="form-control is-valid" id="validationServer02" name="username" required>
+    <div class="valid-feedback">
+      Looks good!
+    </div>
+  </div>
+
+
+  <div class="col-md-4">
+      <select class="form-select" aria-label="Default select example" >
+      <option selected>Chọn khóa</option>
+      <option value="K14">K14</option>
+      <option value="K15">K15</option>
+      <option value="K16">K16</option>
+      <option value="K17">K17 </option>
+    </select>
+  </div>
+  <div class="col-md-4">
+      <select class="form-select" aria-label="Default select example" name="specialized">
+      <option selected>Chọn chuyên ngành</option>
+      <option value="KHMT">Khoa học máy tính</option>
+      <option value="CNTT">Công nghệ thông tin</option>
+      <option value="KTPM">Kỹ thuật phần mềm</option>
+      <option value="HTTT">Hệ thống thông tin</option>
+      <option value="other">Ngành khác</option>
+    </select>
+  </div>
+  <div class="col-md-4">
+      <select class="form-select" aria-label="Default select example" name="position">
+      <option selected>Chọn bộ phận</option>
+      <option value="technical">Technical</option>
+      <option value="tester">Tester</option>
+      <option value="other">Bộ phận khác</option>
+    </select>
+  </div>
+  <div class="col-md-4">
+      <select class="form-select" aria-label="Default select example" name="permision">
+      <option selected>Chọn chức vụ</option>
+      <option value="admin">Quản trị viên</option>
+      <option value="member">Thành viên</option>
+      <option value="ctv">Cộng tác viên</option>
+      <option value="other">Bộ phận khác</option>
+    </select>
+  </div>
+
+  <div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text">Upload</span>
+  </div>
+  <div class="custom-file">
+    <input type="file" class="custom-file-input" id="inputGroupFile01">
+    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+  </div>
+</div>
+  {{!-- <div class="col-md-3">
+    <label for="validationServer05" class="form-label">File ảnh</label>
+    <input type="file" class="form-control is-invalid" id="validationServer05" aria-describedby="validationServer05Feedback" required>
+    <div id="validationServer05Feedback" class="invalid-feedback">
+      Please provide a valid zip.
+    </div>
+  </div> --}}
+  {{!-- <div class="col-12">
+    <div class="form-check">
+      <input class="form-check-input is-invalid" type="checkbox" value="" id="invalidCheck3" aria-describedby="invalidCheck3Feedback" required>
+      <label class="form-check-label" for="invalidCheck3">
+        Agree to terms and conditions
+      </label>
+      <div id="invalidCheck3Feedback" class="invalid-feedback">
+        You must agree before submitting.
+      </div>
+    </div>
+  </div> --}}
+  <div class="col-12">
+    <button class="btn btn-primary" type="submit">Thêm thành viên</button>
+  </div>
+</form>
+
+
+
+{{/with}}

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/app.css">
+    <link rel="web icon" href="/img/logo2.jpg"> 
+    <title>IT-Supporter HaUI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;1,300&family=Josefin+Sans:ital,wght@0,200;0,300;0,400;1,100;1,200;1,300&family=Pacifico&family=Yanone+Kaffeesatz:wght@200&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="app">
+        <div class="app__login">
+            <form action="/auth/author" method="post" id="form_container">
+                <div class="form__banner--img">
+                    <div class="form__banner"> </div>
+                </div>
+                <h1 class="form__heading">Xin chào IT-Súp !</h1>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Tên đăng nhập</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username" value={{username}}>
+                    {{#if notifiuser}}
+                        <span class="text__error">
+                            <p style="color: rgb(255, 83, 83); margin-top: 10px;">{{notifiuser}}</p>
+                            <i style="color: rgb(255, 83, 83);" class="fa-solid fa-triangle-exclamation"></i>
+                        </span>
+                    {{/if}}
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Mật khẩu</label>
+                    <span class="input-text">
+                        <input type="password" class="form-control form-password" id="exampleInputPassword1" name="password" value={{password}}>
+                        <i class="fa-solid fa-eye showbtn" style="cursor: pointer;"></i>
+                    </span>
+                     {{#if notifipass}}
+                        <span class="text__error">
+                            <p style="color: rgb(255, 83, 83);margin-top: 10px;">{{notifipass}}</p>
+                            <i style="color: rgb(255, 83, 83);" class="fa-solid fa-triangle-exclamation"></i>
+                        </span>
+                    {{/if}}
+                </div>
+                {{#if notifi}}
+                    <span class="text__error">
+                        <p style="color: rgb(255, 83, 83);">{{notifi}}</p>
+                        <i style="color: rgb(255, 83, 83);" class="fa-solid fa-triangle-exclamation"></i>
+                    </span>
+                {{/if}}
+                <button type="submit" class="btn btn-primary">Đăng nhập</button>
+            </form>
+        </div>
+    </div>
+ <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script>
+    const btn = document.querySelector('.showbtn');
+    const input = document.querySelector('.form-password')
+    btn.addEventListener('click', () => {
+        if(input.type == 'text') {
+            input.type = 'password';
+            btn.className = 'fa-solid fa-eye showbtn'
+        } else {
+             input.type = 'text'   
+             btn.className = 'fa-solid fa-eye-slash showbtn'
+        }
+    })
+  </script>
+</body>
+</html>

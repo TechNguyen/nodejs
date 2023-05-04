@@ -1,5 +1,5 @@
 <div class="mt-4">
-  <h3>Khóa học của tôi</h3>
+  <h3>Khóa học da xoa</h3>
   <a href="/user/storeUser">Khoa hoc cua toi</a>
   <table class="table">
     <thead>
@@ -15,17 +15,35 @@
     </thead>
     <tbody>
       {{#each users }}
-        <tr>
-        <th scope="row">{{sum @index 1}}</th>
-        <td>{{this.email}}</td>
-        <td>{{this.address}}</td>
-        <td>{{this.firstname}}</td>
-        <td>{{this.lastname}}</td>
-        <td>{{this.createAt}}</td>
-        <td>
-            <a href="/user/trash/{{this._id}}" data-id="{{this._id}}" class="btn btn-link btn-restore">Restore</a>
-            <a href="/user/delete/{{this._id}}"  data-id="{{this._id}}"  data-toggle="modal" data-target="#deleteModal" class="btn btn-link">Delete</a>
-        </td>
+       <tr>
+          <td>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value="{{this._id}}"
+                name="userId[]"
+              />
+            </div>
+          </td>
+          <th scope="row"></th>
+          <td>{{this.firstname}}</td>
+          <td>{{this.lastname}}</td>
+          <td>{{this.email}}</td>
+          <td>{{this.address}}</td>
+          <td>{{this.createdAt}}</td>
+          <td>
+            <a href="" data-id="{{this._id}}" data-toggle="modal" data-target="#restoreModal" class="btn btn-link btn-restore">Restore</a>
+          </td>
+          <td>
+            <a
+              href=""
+              data-id="{{this._id}}"
+              data-toggle="modal"
+              data-target="#deleteModal"
+              class="btn btn-link"
+            >Delete</a>
+          </td>
         </tr>
         {{else}}
         <tr>
@@ -74,7 +92,7 @@
 
 
 
-<div id="restoreForm" class="modal" tabindex="-1" role="dialog">
+<div id="restoreModal" class="modal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -88,37 +106,34 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button id="btn-delete-course" type="button" class="btn btn-primary" >Delete</button>
+        <button id="btn-restore-user" type="button" class="btn btn-primary" >Restore</button>
       </div>
     </div>
   </div>
 </div>
 <script>
-
-
-
    document.addEventListener('DOMContentLoaded', function() {
     const deleteForm = document.forms['deleteForm'];
     const clickDelete = document.getElementById('btn-delete-course');
-    var courseId;
+    let userId;
     $('#deleteModal').on('show.bs.modal', function(e) {
-       courseId = $(e.relatedTarget).data('id')
+       userId = $(e.relatedTarget).data('id')
     })
     clickDelete.addEventListener('click', function() {
-        deleteForm.action = '/courses/' + courseId + '/force?_method=DELETE';
+        deleteForm.action = '/user/' + userId + '/force?_method=DELETE';
         deleteForm.submit();
     })
     })
-
-
   document.addEventListener('DOMContentLoaded', function() {
     const restoreForm = document.forms['restoreForm'];
-    const clickRestore = $('.btn-restore');
-    clickRestore.click(function(e) {  
-      e.preventDefault();
-      var courseId = $(this).data('id')
-      restoreForm.action = '/courses/' + courseId + '/restore?_method=PATCH';
-      restoreForm.submit();
+    const clickRestore = document.getElementById('btn-restore-user');
+    let useId;
+     $('#restoreModal').on('show.bs.modal', function(e) {
+       userId = $(e.relatedTarget).data('id')
+    })
+    clickRestore.addEventListener('click', function() {
+        restoreForm.action = '/user/' + userId + '/restore?_method=PATCH';
+        restoreForm.submit();
     })
     })
 </script>
